@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Django+Vue前后端分离" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/14/Django+Vue前后端分离/" class="article-date">
+  <time datetime="2019-04-14T09:03:36.130Z" itemprop="datePublished">2019-04-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Django部分"><a href="#Django部分" class="headerlink" title="Django部分"></a>Django部分</h2><ol>
+<li><p>在app目录下的views文件写接口，返回JSON格式数据。</p>
+<blockquote>
+<ul>
+<li><p><strong>安装</strong>   pip install djangorestframework</p>
+</li>
+<li><p><strong>注册</strong> </p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; INSTALLED_APPS = [</span><br><span class="line">&gt;  ...</span><br><span class="line">&gt;    <span class="string">'rest_framework'</span>,</span><br><span class="line">&gt; ]</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<ul>
+<li><p><strong>序列化</strong></p>
+<blockquote>
+<p>新建一个名为serializers.py的文件</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;   <span class="keyword">from</span> rest_framework <span class="keyword">import</span> serializers   <span class="comment"># 要用到的包</span></span><br><span class="line">&gt;   <span class="keyword">from</span> .models <span class="keyword">import</span> NewsTags, News   <span class="comment"># 导入这两张表</span></span><br><span class="line">&gt;   <span class="keyword">from</span>  app.authpro.serializers <span class="keyword">import</span> Userserializer  <span class="comment"># 同样的方法在authpro 这个app下新建Userserializer文件</span></span><br><span class="line">&gt;   </span><br><span class="line">&gt;   <span class="class"><span class="keyword">class</span> <span class="title">Newstagserializer</span><span class="params">(serializers.ModelSerializer)</span>:</span></span><br><span class="line">&gt;       <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">&gt;           model = NewsTags</span><br><span class="line">&gt;           fields = (<span class="string">"id"</span>,<span class="string">"name"</span>, <span class="string">"is_delete"</span>)</span><br><span class="line">&gt;   </span><br><span class="line">&gt;   </span><br><span class="line">&gt;   <span class="class"><span class="keyword">class</span> <span class="title">Newsserializer</span><span class="params">(serializers.ModelSerializer)</span>:</span>  <span class="comment"># 继承这个玩意就可以</span></span><br><span class="line">&gt;       tag = Newstagserializer()   <span class="comment">#外键只需要将序列化后的表实例化，这是上面Newstagserializer 的实例</span></span><br><span class="line">&gt;       author = Userserializer()   <span class="comment"># 这是   Userserializer  的实例</span></span><br><span class="line">&gt;       <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">&gt;            <span class="comment">#表名</span></span><br><span class="line">&gt;           model = News  </span><br><span class="line">&gt;            <span class="comment"># 字段名</span></span><br><span class="line">&gt;           fields = (<span class="string">"id"</span>,<span class="string">"title"</span>, <span class="string">"desc"</span>, <span class="string">"content"</span>, <span class="string">"thumbnail_url"</span>, <span class="string">"is_delete"</span>, <span class="string">"pub_time"</span>, <span class="string">"tag"</span>, <span class="string">'author'</span>)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><p><strong>使用</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;   <span class="comment">#在当前视图中导入</span></span><br><span class="line">&gt;   <span class="keyword">from</span> .serializers <span class="keyword">import</span> Newsserializer </span><br><span class="line">&gt;   <span class="keyword">from</span> django.http <span class="keyword">import</span> JsonResponse</span><br><span class="line">&gt;   <span class="function"><span class="keyword">def</span> <span class="title">news_list</span><span class="params">(request)</span>:</span></span><br><span class="line">&gt;       <span class="comment">#查数据,和第一种方法查数据的时候一样</span></span><br><span class="line">&gt;       news = News.object.all()</span><br><span class="line">&gt;       <span class="comment"># 后台返回数据</span></span><br><span class="line">&gt;       serializer = Newsserializer(news,many=<span class="literal">True</span>)  <span class="comment"># 注意多条数据的时候要加many=True</span></span><br><span class="line">&gt;       <span class="keyword">return</span> JsonResponse(&#123;“data”:&#123;<span class="string">"news"</span>:serialzer.data&#125;&#125;)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+</blockquote>
+</li>
+</ol>
+<ol start="2">
+<li><p>在app目录下新建urls.py文件，将新增的接口添加到路由。</p>
+</li>
+<li><p>用django-cors-headers解决跨域问题</p>
+<blockquote>
+<p>安装：pip install django-cors-headers</p>
+<blockquote>
+<p>修改settings.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&gt; &gt; 跨域问题，本地环境测试的话 就需要在``Django``做调整，如果是线上的话，直接在Nginx或者Apache添加头部信息就好，Django有一个专门解决跨域的包，这个非常的好</span><br><span class="line">&gt; &gt; </span><br><span class="line">&gt; &gt; pip install django-cors-headers</span><br><span class="line">&gt; &gt; </span><br><span class="line">&gt; &gt; 配置settings.py文件</span><br><span class="line">&gt; &gt; </span><br><span class="line">&gt; &gt; INSTALLED_APPS = [</span><br><span class="line">&gt; &gt;     ...</span><br><span class="line">&gt; &gt;     <span class="string">'corsheaders'</span>， <span class="comment">#必须添加</span></span><br><span class="line">&gt; &gt;     ...</span><br><span class="line">&gt; &gt;  ] </span><br><span class="line">&gt; &gt; </span><br><span class="line">&gt; &gt; MIDDLEWARE_CLASSES = (</span><br><span class="line">&gt; &gt;     ...</span><br><span class="line">&gt; &gt;     <span class="string">'corsheaders.middleware.CorsMiddleware'</span>, <span class="comment">#这个在common上面</span></span><br><span class="line">&gt; &gt;     <span class="string">'django.middleware.common.CommonMiddleware'</span>, </span><br><span class="line">&gt; &gt;     ...</span><br><span class="line">&gt; &gt; )</span><br><span class="line">&gt; &gt; <span class="comment">#跨域增加忽略</span></span><br><span class="line">&gt; &gt; CORS_ALLOW_CREDENTIALS = <span class="literal">True</span></span><br><span class="line">&gt; &gt; CORS_ORIGIN_ALLOW_ALL = <span class="literal">True</span></span><br><span class="line">&gt; &gt; CORS_ORIGIN_WHITELIST = (</span><br><span class="line">&gt; &gt;     <span class="string">'*'</span></span><br><span class="line">&gt; &gt; )</span><br><span class="line">&gt; &gt; </span><br><span class="line">&gt; &gt; CORS_ALLOW_METHODS = (</span><br><span class="line">&gt; &gt;     <span class="string">'DELETE'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'GET'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'OPTIONS'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'PATCH'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'POST'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'PUT'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'VIEW'</span>,</span><br><span class="line">&gt; &gt; )</span><br><span class="line">&gt; &gt; </span><br><span class="line">&gt; &gt; CORS_ALLOW_HEADERS = (</span><br><span class="line">&gt; &gt;     <span class="string">'XMLHttpRequest'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'X_FILENAME'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'accept-encoding'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'authorization'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'content-type'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'dnt'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'origin'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'user-agent'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'x-csrftoken'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'x-requested-with'</span>,</span><br><span class="line">&gt; &gt;     <span class="string">'Pragma'</span>,</span><br><span class="line">&gt; &gt; )</span><br><span class="line">&gt; &gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+<h2 id="Vue部分"><a href="#Vue部分" class="headerlink" title="Vue部分"></a>Vue部分</h2><ol>
+<li><p>调用在Django写好的接口，将数据插入到页面。</p>
+<ul>
+<li><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save axios vue-axios</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置main.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"><span class="keyword">import</span> VueAxios <span class="keyword">from</span> <span class="string">'vue-axios'</span></span><br><span class="line"></span><br><span class="line">Vue.use(VueAxios, axios)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用示例</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">        &#123;&#123; info &#125;&#125;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">    #app &#123;</span><br><span class="line">        width: <span class="number">100</span>%;</span><br><span class="line">        height: <span class="number">60</span>px;</span><br><span class="line">        border: <span class="number">1</span>px solid red;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">    name: '#app',</span></span><br><span class="line"><span class="regexp">    data () &#123;</span></span><br><span class="line"><span class="regexp">        return &#123;</span></span><br><span class="line"><span class="regexp">            info: null</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    mounted: function() &#123;</span></span><br><span class="line"><span class="regexp">        this.showInfo()</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    methods: &#123;</span></span><br><span class="line"><span class="regexp">        showInfo()&#123;</span></span><br><span class="line"><span class="regexp">            this.axios.get('http:/</span><span class="regexp">/localhost:8000/</span>api/<span class="string">').then((response) =&gt; &#123;</span></span><br><span class="line"><span class="string">                this.info = response.data</span></span><br><span class="line"><span class="string">            &#125;)</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看页面数据是否插入成功</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将项目打包，此时会生成一个dist目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="整合"><a href="#整合" class="headerlink" title="整合"></a>整合</h2><blockquote>
+<p>将Django的TemplateView指向生成的前端文件dist</p>
+</blockquote>
+<ol>
+<li>修改项目目录下的urls.py,使用通用视图创建模板控制器，访问’ / ‘时直接返回index.html</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.views.generic <span class="keyword">import</span> TemplateView</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'admin/'</span>, xadmin.site.urls),</span><br><span class="line">    path(<span class="string">'api/'</span>, include(<span class="string">'myapp.urls'</span>)),</span><br><span class="line">    path(<span class="string">' '</span>, TemplateView.as_view(template_name=<span class="string">'index.html'</span>))</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>修改项目目录的settings文件</p>
+<blockquote>
+<p>上一步使用了Django的模板系统，所以需要配置一下模板使Django知道从哪里找到index.html。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">************************配置模板************************************</span><br><span class="line">TEMPLATES = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'BACKEND'</span>: <span class="string">'django.template.backends.django.DjangoTemplates'</span>,</span><br><span class="line">        <span class="string">'DIRS'</span>: [<span class="string">'appfront/dist'</span>], <span class="comment">#修改此行</span></span><br><span class="line">        <span class="string">'APP_DIRS'</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">'OPTIONS'</span>: &#123;</span><br><span class="line">            <span class="string">'context_processors'</span>: [</span><br><span class="line">                <span class="string">'django.template.context_processors.debug'</span>,</span><br><span class="line">                <span class="string">'django.template.context_processors.request'</span>,</span><br><span class="line">                <span class="string">'django.contrib.auth.context_processors.auth'</span>,</span><br><span class="line">                <span class="string">'django.contrib.messages.context_processors.messages'</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">*******************配置静态文件搜索路径********************************</span><br><span class="line"><span class="comment"># Add for vuejs</span></span><br><span class="line">STATICFILES_DIRS = [</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">"appfront/dist/static"</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查是否配置成功</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py manage.py runserver</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查看8000端口是否展示前端页面</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/14/Django+Vue前后端分离/" data-id="cjugpgifl0000kkvq9koz6ebi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/14/hello-world/" class="article-date">
+  <time datetime="2019-04-14T08:58:32.006Z" itemprop="datePublished">2019-04-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/14/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/14/hello-world/" data-id="cjugpahsz0000bwvq4yrzda92" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/14/Django+Vue前后端分离/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/14/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
